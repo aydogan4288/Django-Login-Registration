@@ -1,0 +1,89 @@
+<head>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+<style type="text/css">
+	* {
+		margin: 0 auto;
+		padding: 0;
+	}
+	#container {
+		margin: 20px auto;
+		padding: 20px;s
+	}
+
+	.redtxt{
+		color: red;
+	}
+	.boxes{
+		width: calc(50% - 20px);
+		border: 1px solid black;
+    border-radius: 10px;
+		display: inline-block;
+		vertical-align: top;
+		padding: 10px;
+	}
+	p{
+		font-weight: 900;
+		margin: 20px 0 0 0;
+	}
+	.btn{
+		margin: 20px 0 0 0;
+	}
+  .messages{
+    color: red;
+  }
+</style>
+</head>
+<body>
+	<div id="container">
+		<form action="/register" method="post" name="register" class="boxes">
+			{%csrf_token%}
+			<h2>Register</h2>
+
+			<p>First name:</p>
+			<input type="text" class="form-control" name="first_name" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" value="{{ request.session.first_name }}">
+
+			<p>Last Name:</p>
+			<input type="text" class="form-control" name="last_name" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" value="{{ request.session.last_name }}">
+
+			<p>Email:</p>
+			<input type="email" class="form-control" name="email" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" value="{{ request.session.email }}">
+
+			<p>Password:</p>
+			<input type="password" class="form-control" name="password" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+
+			<p>Confirm Password:</p>
+			<input type="password" class="form-control" name="confirm" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+
+			<input type="submit" class="btn btn-success" name="action" value="Register">
+
+			{% if messages %}
+				{% for message in messages %}
+					{% if "register" in message.tags %}
+						<p{% if message.tags %} class="messages"{% endif %}>{{ message }}</p>
+					{% endif %}
+				{% endfor %}
+			{% endif %}
+      {{congrats}}
+		</form>
+    <form action="/login" method="post" name="login" class="boxes">
+  {%csrf_token%}
+  <h2>Login</h2>
+
+  <p>email:</p>
+  <input type="text" class="form-control" name="emaillogin" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+
+  <p>password:</p>
+  <input type="password" class="form-control" name="passwordlogin" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+
+  <input type="submit" class="btn btn-success" name="action" value="Login">
+
+  {% if messages %}
+    {% for message in messages %}
+      {% if "login" in message.tags %}
+        <p{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+      {% endif %}
+    {% endfor %}
+  {% endif %}
+
+</form>
+</div>
